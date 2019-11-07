@@ -7,17 +7,19 @@ using UnityEngine.UI;
 public class Manager : MonoBehaviour
 {
     [SerializeField]GameObject gameOver;
-    [SerializeField]GameObject timeSlider;
-    [SerializeField] Text Timer;
-	public static Manager manager;
+    [SerializeField] Text Grade;
+    [SerializeField] Text FinalGrade;
+    [SerializeField] Slider Slider;
+    public static Manager manager;
 
 	[SerializeField] Character Player;
 	[SerializeField] public Monster Mob_L;
 	[SerializeField] public Monster Mob_R;
 	[SerializeField] Monster Mob;
 
-	[SerializeField] float 남은시간;
-	[SerializeField] float 줄어드는_비율;
+	[SerializeField] float RemainTime = 5.0f;
+	[SerializeField] float ReduseRate = 0.3f;
+    int Point = 0;
 
 	private void Start()
 	{
@@ -85,11 +87,12 @@ public class Manager : MonoBehaviour
 					Mob = Mob_L;
 				}
 				Mob.Grow();
-				남은시간 = 남은시간 * 줄어드는_비율;
-				if (남은시간< 0.3f) 남은시간 = 0.3f;
-				StartCoroutine("TimeOut", 남은시간);
-
-				return;
+				RemainTime = RemainTime * ReduseRate;
+				if (RemainTime< 0.3f) RemainTime = 0.3f;
+				StartCoroutine("TimeOut", RemainTime);
+                Slider.maxValue = RemainTime;
+                Point++;
+                return;
 			}
 			//죽음처리
 			GameOver();
@@ -99,12 +102,14 @@ public class Manager : MonoBehaviour
 	{
 		Debug.Log("게임오버");
 		gameOver.SetActive(true);
-	}
+        FinalGrade.text = "수확한 식물수 : " + Point;
+    }
 	IEnumerator TimeOut(float time)
 	{
 		while ((time -= Time.deltaTime) > 0)
 		{
-			Timer.text = "남은시간 : " + (Math.Truncate(time*100)/100).ToString();
+            Slider.value = ((float)(Math.Truncate(time * 100) / 100 ));
+            Grade.text = "수확한 식물수 : " + Point;
 			yield return null;
 		}
 		GameOver();
