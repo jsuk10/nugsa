@@ -16,8 +16,12 @@ public class Manager : MonoBehaviour
 	[SerializeField] public Monster Mob_L;
 	[SerializeField] public Monster Mob_R;
 	[SerializeField] Monster Mob;
+    [SerializeField] Image HavestImage;
+    [SerializeField] Text HavestText;
+    [SerializeField] Image MoveImage;
+    [SerializeField] Text MoveText;
 
-	[SerializeField] float RemainTime = 5.0f;
+    [SerializeField] float RemainTime = 5.0f;
 	[SerializeField] float ReduseRate = 0.3f;
     int Point = 0;
 
@@ -29,18 +33,24 @@ public class Manager : MonoBehaviour
 	}
 	public void Process(string command)
 	{
-
 		if (command == "Move")
-		{
-			//오른쪽으로 이동
-			if (Player.currentTile.index < Mob.currentTile.index)
+        {
+            if (Point > 0)
+            {
+                HavestImage.gameObject.SetActive(false);
+                HavestText.gameObject.SetActive(false);
+                MoveImage.gameObject.SetActive(false);
+                MoveText.gameObject.SetActive(false);
+            }
+            //오른쪽으로 이동
+            if (Player.currentTile.index < Mob.currentTile.index)
 			{
 
-				//식물쪽으로 한칸 더 움직일때
-				if (Player.currentTile.index - Mob.currentTile.index== -1)
-				{
-					//죽음 처리
-					GameOver();
+                //식물쪽으로 한칸 더 움직일때
+                if (Player.currentTile.index - Mob.currentTile.index== -1)
+                {
+                    //죽음 처리
+                    GameOver();
 					return;
 				}
 				//이동
