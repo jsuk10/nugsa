@@ -2002,7 +2002,7 @@ MonoBehaviour:
   MoveImage: {fileID: 807175384}
   MoveText: {fileID: 1358277728}
   RemainTime: 5
-  ReduseRate: 0.997
+  ReduseRate: 0.97
 --- !u!114 &1382742570
 MonoBehaviour:
   m_ObjectHideFlags: 0
