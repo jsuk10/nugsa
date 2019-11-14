@@ -28,7 +28,7 @@ public class Character : MonoBehaviour
 		while (time <= 1f)
 		{
 			time += Time.deltaTime * moveSpeed;
-			//            transform.position = Vector3.LerpUnclamped(startPos, endPos, curve.Evaluate(time));
+			//transform.position = Vector3.LerpUnclamped(startPos, endPos, curve.Evaluate(time));
 			transform.position = Vector3.Slerp(startPos, endPos, time);
 			transform.position += center;
 			yield return null;

@@ -23,9 +23,10 @@ public class Manager : MonoBehaviour
 
     [SerializeField] float RemainTime = 5.0f;
 	[SerializeField] float ReduseRate = 0.3f;
-    int Point = 0;
+    [SerializeField] int Point = 0;
+    [SerializeField] int Mob2Velue = 5;
 
-	private void Start()
+    private void Start()
 	{
 		manager = this;
 		Mob_L = Mob;
@@ -82,27 +83,43 @@ public class Manager : MonoBehaviour
 				StopAllCoroutines();
 				//수확모션
 				Player.SetTrigger("Harvest");
+                if (Mob.GetComponent<Monster>().mobstate == true)
+                {
+                    Mob.Harvest2();
+                    Debug.Log("수확 2");
+                }
+                else if (Mob.GetComponent<Monster>().mobstate == false)
+                    Mob.Harvest();
 
-				Mob.Harvest();
+                //몹위치 변경
+                if (Mob == Mob_L)
+                {
+                    Mob.leftSpawn();
+                    Mob = Mob_R;
+                }
+                else
+                {
+                    Mob.rightSpawn();
+                    Mob = Mob_L;
+                }
 
-				//몹위치 변경
-				if (Mob == Mob_L)
-				{
-					Mob.leftSpawn();
-					Mob = Mob_R;
-				}
-				else
-				{
-					Mob.rightSpawn();
-					Mob = Mob_L;
-				}
-				Mob.Grow();
+                if (Point > Mob2Velue)
+                {
+                    Mob.GetComponent<Monster>().mobstate = true;
+                    Mob.Grow2();
+                }
+                else
+                    Mob.Grow();
+
 				RemainTime = RemainTime * ReduseRate;
 				if (RemainTime< 0.3f)
                     RemainTime = 0.3f;
 				StartCoroutine("TimeOut", RemainTime);
                 Slider.maxValue = RemainTime;
                 Point++;
+
+                
+
                 return;
 			}
 			//죽음처리

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Monster : MonoBehaviour
 {
 	public Tile currentTile;
-	[SerializeField] Character player;
 	[SerializeField] Animator anim;
+    public bool mobstate = false;
 
 	private void Start()
 	{
@@ -24,13 +24,23 @@ public class Monster : MonoBehaviour
 		transform.position = Map.map.tiles[spawnIndex].transform.position;
 		currentTile = Map.map.tiles[spawnIndex];
 	}
-	public void Grow()
-	{
-		anim.SetTrigger("Grow");
-	}
-	public void Harvest()
-	{
-		anim.SetTrigger("Harvest");
-	}
+    public void Grow()
+    {
+        anim.SetTrigger("Grow");
+    }
+    public void Grow2()
+    {
+        anim.SetTrigger("Grow2");
+        mobstate = true;
+    }
+    public void Harvest()
+    {
+        anim.SetTrigger("Harvest");
+    }
+    public void Harvest2()
+    {
+        anim.SetTrigger("Harvest2");
+        Debug.Log("수확 2함수 실행");
+    }
 
 }
