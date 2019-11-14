@@ -98,7 +98,8 @@ public class Manager : MonoBehaviour
 				}
 				Mob.Grow();
 				RemainTime = RemainTime * ReduseRate;
-				if (RemainTime< 0.3f) RemainTime = 0.3f;
+				if (RemainTime< 0.3f)
+                    RemainTime = 0.3f;
 				StartCoroutine("TimeOut", RemainTime);
                 Slider.maxValue = RemainTime;
                 Point++;
