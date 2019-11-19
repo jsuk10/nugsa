@@ -24,7 +24,9 @@ public class Manager : MonoBehaviour
     [SerializeField] float RemainTime = 5.0f;
 	[SerializeField] float ReduseRate = 0.3f;
     [SerializeField] int Point = 0;
-    [SerializeField] int Mob2Velue = 5;
+    [SerializeField] int Mob2Velue = 2;
+    int twoTouch = -1;
+    bool changeMob = true;
 
     private void Start()
 	{
@@ -32,7 +34,12 @@ public class Manager : MonoBehaviour
 		Mob_L = Mob;
 		Mob.Grow();
 	}
-	public void Process(string command)
+    private void Update()
+    {
+        Debug.Log(twoTouch);
+        Debug.Log(changeMob);
+    }
+    public void Process(string command)
 	{
 		if (command == "Move")
         {
@@ -85,41 +92,54 @@ public class Manager : MonoBehaviour
 				Player.SetTrigger("Harvest");
                 if (Mob.GetComponent<Monster>().mobstate == true)
                 {
-                    Mob.Harvest2();
-                    Debug.Log("수확 2");
+                    if (twoTouch == 1)
+                    {
+                        Mob.Harvest2();
+                        twoTouch *= -1;
+                        changeMob = true;
+                    }
+                    else
+                    {
+                        changeMob = false;
+                        twoTouch *= -1;
+                    }
                 }
                 else if (Mob.GetComponent<Monster>().mobstate == false)
+                {
                     Mob.Harvest();
-
+                    changeMob = true;
+                }
                 //몹위치 변경
-                if (Mob == Mob_L)
+                if (changeMob == true)
                 {
-                    Mob.leftSpawn();
-                    Mob = Mob_R;
+                    if (Mob == Mob_L)
+                    {
+                        Mob.leftSpawn();
+                        Mob = Mob_R;
+                    }
+                    else if (Mob == Mob_R)
+                    {
+                        Mob.rightSpawn();
+                        Mob = Mob_L;
+                    }
+
+                    if (Point > Mob2Velue)
+                    {
+                        Mob.GetComponent<Monster>().mobstate = true;
+                        if (twoTouch == -1)
+                            Mob.Grow2();
+                    }
+                    else
+                        Mob.Grow();
+
+                    //점수와 시간에 대한 곳.
+                    RemainTime = RemainTime * ReduseRate;
+                    if (RemainTime < 0.3f)
+                        RemainTime = 0.3f;
+                    StartCoroutine("TimeOut", RemainTime);
+                    Slider.maxValue = RemainTime;
+                    Point++;
                 }
-                else
-                {
-                    Mob.rightSpawn();
-                    Mob = Mob_L;
-                }
-
-                if (Point > Mob2Velue)
-                {
-                    Mob.GetComponent<Monster>().mobstate = true;
-                    Mob.Grow2();
-                }
-                else
-                    Mob.Grow();
-
-				RemainTime = RemainTime * ReduseRate;
-				if (RemainTime< 0.3f)
-                    RemainTime = 0.3f;
-				StartCoroutine("TimeOut", RemainTime);
-                Slider.maxValue = RemainTime;
-                Point++;
-
-                
-
                 return;
 			}
 			//죽음처리

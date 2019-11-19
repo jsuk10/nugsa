@@ -27,7 +27,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Havest2
+  - m_Name: Harvest2
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -143,7 +143,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Havest2
+    m_ConditionEvent: Harvest2
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102865500463213092}
@@ -438,22 +438,22 @@ AnimatorStateMachine:
     m_Position: {x: 360, y: 336, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102099232113182442}
-    m_Position: {x: 168, y: 468, z: 0}
+    m_Position: {x: 192, y: 528, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102053316846551458}
-    m_Position: {x: -216, y: 480, z: 0}
+    m_Position: {x: -168, y: 540, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102027286732663558}
     m_Position: {x: -24, y: 324, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102970348836014928}
-    m_Position: {x: 564, y: 468, z: 0}
+    m_Position: {x: 528, y: 528, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102865500463213092}
     m_Position: {x: 696, y: 336, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102135513128933838}
-    m_Position: {x: 840, y: 468, z: 0}
+    m_Position: {x: 816, y: 528, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
