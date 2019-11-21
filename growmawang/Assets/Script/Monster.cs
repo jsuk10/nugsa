@@ -40,7 +40,6 @@ public class Monster : MonoBehaviour
     public void Harvest2()
     {
         anim.SetTrigger("Harvest2");
-        Debug.Log("수확 2함수 실행");
     }
 
 }

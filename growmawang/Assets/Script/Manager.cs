@@ -36,8 +36,7 @@ public class Manager : MonoBehaviour
 	}
     private void Update()
     {
-        Debug.Log(twoTouch);
-        Debug.Log(changeMob);
+    
     }
     public void Process(string command)
 	{
@@ -87,7 +86,6 @@ public class Manager : MonoBehaviour
 			int temp = Player.currentTile.index - Mob.currentTile.index;
 			if (temp*temp == 1)
 			{
-				StopAllCoroutines();
 				//수확모션
 				Player.SetTrigger("Harvest");
                 if (Mob.GetComponent<Monster>().mobstate == true)
@@ -97,6 +95,7 @@ public class Manager : MonoBehaviour
                         Mob.Harvest2();
                         twoTouch *= -1;
                         changeMob = true;
+                        StopAllCoroutines();
                     }
                     else
                     {
@@ -108,6 +107,7 @@ public class Manager : MonoBehaviour
                 {
                     Mob.Harvest();
                     changeMob = true;
+                    StopAllCoroutines();
                 }
                 //몹위치 변경
                 if (changeMob == true)
@@ -134,10 +134,10 @@ public class Manager : MonoBehaviour
 
                     //점수와 시간에 대한 곳.
                     RemainTime = RemainTime * ReduseRate;
+                    Slider.maxValue = RemainTime;
                     if (RemainTime < 0.3f)
                         RemainTime = 0.3f;
                     StartCoroutine("TimeOut", RemainTime);
-                    Slider.maxValue = RemainTime;
                     Point++;
                 }
                 return;
