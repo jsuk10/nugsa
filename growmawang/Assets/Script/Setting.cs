@@ -13,4 +13,8 @@ public class Setting : MonoBehaviour
     {
         SceneManager.LoadScene("Ingame");
     }
+    public void SettingMenu()
+    {
+        SceneManager.LoadScene("Setting");
+    }
 }
