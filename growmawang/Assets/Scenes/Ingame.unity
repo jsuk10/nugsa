@@ -1999,8 +1999,10 @@ MonoBehaviour:
   Mob: {fileID: 471489490}
   HavestImage: {fileID: 220856966}
   HavestText: {fileID: 324418857}
+  HaverstButton: {fileID: 1697317068}
   MoveImage: {fileID: 807175384}
   MoveText: {fileID: 1358277728}
+  MoveButton: {fileID: 2136563292}
   RemainTime: 5
   ReduseRate: 0.97
   Point: 0

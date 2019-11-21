@@ -18,8 +18,10 @@ public class Manager : MonoBehaviour
 	[SerializeField] Monster Mob;
     [SerializeField] Image HavestImage;
     [SerializeField] Text HavestText;
+    [SerializeField] GameObject HaverstButton;
     [SerializeField] Image MoveImage;
     [SerializeField] Text MoveText;
+    [SerializeField] GameObject MoveButton;
 
     [SerializeField] float RemainTime = 5.0f;
 	[SerializeField] float ReduseRate = 0.3f;
@@ -57,8 +59,8 @@ public class Manager : MonoBehaviour
                 if (Player.currentTile.index - Mob.currentTile.index== -1)
                 {
                     //죽음 처리
-                    GameOver();
-					return;
+                    StartCoroutine(GameOver());
+                    return;
 				}
 				//이동
 				Player.SetTrigger("RightMove");
@@ -71,9 +73,9 @@ public class Manager : MonoBehaviour
 				//식물쪽으로 한칸 더 움직일때
 				if (Player.currentTile.index - Mob.currentTile.index == 1)
 				{
-					//죽음 처리
-					GameOver();
-					return;
+                    //죽음 처리
+                    StartCoroutine(GameOver());
+                    return;
 				}
 				//이동
 				Player.SetTrigger("LeftMove");
@@ -107,7 +109,7 @@ public class Manager : MonoBehaviour
                 {
                     Mob.Harvest();
                     changeMob = true;
-                    StopAllCoroutines();
+                    StopCoroutine("TimeOut");
                 }
                 //몹위치 변경
                 if (changeMob == true)
@@ -142,17 +144,21 @@ public class Manager : MonoBehaviour
                 }
                 return;
 			}
-			//죽음처리
-			GameOver();
+            //죽음처리
+            StartCoroutine(GameOver());
 		}
 	}
-	void GameOver()
-	{
-		Debug.Log("게임오버");
-		gameOver.SetActive(true);
+    IEnumerator GameOver()
+    {
+        Player.SetTrigger("Die");
+        HaverstButton.SetActive(false);
+        MoveButton.SetActive(false);
+
+        yield return new WaitForSeconds(2.0f);
+        gameOver.SetActive(true);
         FinalGrade.text = "수확한 식물수 : " + Point;
     }
-	IEnumerator TimeOut(float time)
+    IEnumerator TimeOut(float time)
 	{
 		while ((time -= Time.deltaTime) > 0)
 		{
@@ -160,6 +166,6 @@ public class Manager : MonoBehaviour
             Grade.text = "수확한 식물수 : " + Point;
 			yield return null;
 		}
-		GameOver();
-	}
+        StartCoroutine(GameOver());
+    }
 }
