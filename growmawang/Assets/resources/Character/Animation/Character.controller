@@ -14,25 +14,25 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: LeftMove
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Harvest
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Die
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -500,7 +500,7 @@ AnimatorStateMachine:
     m_Position: {x: 612, y: -216, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102548466910297248}
-    m_Position: {x: 852, y: -360, z: 0}
+    m_Position: {x: 876, y: -300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102445513020070926}
     m_Position: {x: 612, y: -408, z: 0}

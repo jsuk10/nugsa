@@ -27,8 +27,9 @@ public class Manager : MonoBehaviour
 	[SerializeField] float ReduseRate = 0.3f;
     [SerializeField] int Point = 0;
     [SerializeField] int Mob2Velue = 2;
-    int twoTouch = -1;
-    bool changeMob = true;
+    [SerializeField] bool changeMob = true;
+    int TouchCount = 0;
+    bool Timestate = true;
 
     private void Start()
 	{
@@ -38,11 +39,30 @@ public class Manager : MonoBehaviour
 	}
     private void Update()
     {
-    
+
     }
     public void Process(string command)
 	{
-		if (command == "Move")
+        if (command == "Stop")
+        {
+            if (Timestate == true)
+            {
+                Time.timeScale = 0;
+                HaverstButton.SetActive(false);
+                MoveButton.SetActive(false);
+            }
+            else
+            {
+                Time.timeScale = 1;
+                HaverstButton.SetActive(true);
+                MoveButton.SetActive(true);
+
+            }
+            Timestate = !Timestate;
+        }
+        if (command == "Restart")
+            Time.timeScale = 1;
+        if (command == "Move")
         {
             if (Point > 0)
             {
@@ -51,10 +71,10 @@ public class Manager : MonoBehaviour
                 MoveImage.gameObject.SetActive(false);
                 MoveText.gameObject.SetActive(false);
             }
+
             //오른쪽으로 이동
             if (Player.currentTile.index < Mob.currentTile.index)
 			{
-
                 //식물쪽으로 한칸 더 움직일때
                 if (Player.currentTile.index - Mob.currentTile.index== -1)
                 {
@@ -69,9 +89,9 @@ public class Manager : MonoBehaviour
 			}
 			//왼쪽으로 이동
 			if (Player.currentTile.index > Mob.currentTile.index)
-			{
-				//식물쪽으로 한칸 더 움직일때
-				if (Player.currentTile.index - Mob.currentTile.index == 1)
+            {
+                //식물쪽으로 한칸 더 움직일때
+                if (Player.currentTile.index - Mob.currentTile.index == 1)
 				{
                     //죽음 처리
                     StartCoroutine(GameOver());
@@ -83,78 +103,83 @@ public class Manager : MonoBehaviour
 				return;
 			}
 		}
+
 		if (command == "Harvest")
 		{
-			int temp = Player.currentTile.index - Mob.currentTile.index;
+            int temp = Player.currentTile.index - Mob.currentTile.index;
 			if (temp*temp == 1)
 			{
 				//수확모션
 				Player.SetTrigger("Harvest");
                 if (Mob.GetComponent<Monster>().mobstate == true)
                 {
-                    if (twoTouch == 1)
+                    if (TouchCount == 1)
                     {
                         Mob.Harvest2();
-                        twoTouch *= -1;
+                        Point += 2;
+                        TouchCount = 0;
                         changeMob = true;
                         StopAllCoroutines();
                     }
                     else
                     {
                         changeMob = false;
-                        twoTouch *= -1;
+                        TouchCount++;
                     }
                 }
                 else if (Mob.GetComponent<Monster>().mobstate == false)
                 {
                     Mob.Harvest();
+                    Point++;
                     changeMob = true;
                     StopCoroutine("TimeOut");
                 }
                 //몹위치 변경
-                if (changeMob == true)
-                {
-                    if (Mob == Mob_L)
+               
+                    if (changeMob == true)
                     {
-                        Mob.leftSpawn();
-                        Mob = Mob_R;
-                    }
-                    else if (Mob == Mob_R)
-                    {
-                        Mob.rightSpawn();
-                        Mob = Mob_L;
-                    }
+                        if (Mob == Mob_L)
+                        {
+                            Mob.leftSpawn();
+                            Mob = Mob_R;
+                        }
+                        else if (Mob == Mob_R)
+                        {
+                            Mob.rightSpawn();
+                            Mob = Mob_L;
+                        }
 
-                    if (Point > Mob2Velue)
-                    {
-                        Mob.GetComponent<Monster>().mobstate = true;
-                        if (twoTouch == -1)
-                            Mob.Grow2();
+                        //몹 1, 2 분기점
+                        if (Point > Mob2Velue)
+                        {
+                            Mob.GetComponent<Monster>().mobstate = true;
+                            if (TouchCount == 0)
+                                Mob.Grow2();
+                        }
+                        else
+                            Mob.Grow();
                     }
-                    else
-                        Mob.Grow();
-
                     //점수와 시간에 대한 곳.
                     RemainTime = RemainTime * ReduseRate;
                     Slider.maxValue = RemainTime;
                     if (RemainTime < 0.3f)
                         RemainTime = 0.3f;
                     StartCoroutine("TimeOut", RemainTime);
-                    Point++;
-                }
+                
                 return;
 			}
             //죽음처리
             StartCoroutine(GameOver());
 		}
 	}
+
     IEnumerator GameOver()
     {
         Player.SetTrigger("Die");
         HaverstButton.SetActive(false);
         MoveButton.SetActive(false);
 
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.2f);
         gameOver.SetActive(true);
         FinalGrade.text = "수확한 식물수 : " + Point;
     }
