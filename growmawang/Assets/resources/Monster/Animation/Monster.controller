@@ -14,25 +14,25 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Harvest
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Grow2
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Harvest2
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -438,29 +438,29 @@ AnimatorStateMachine:
     m_Position: {x: 360, y: 336, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102099232113182442}
-    m_Position: {x: 192, y: 528, z: 0}
+    m_Position: {x: 360, y: 528, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102053316846551458}
-    m_Position: {x: -168, y: 540, z: 0}
+    m_Position: {x: 12, y: 516, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102027286732663558}
-    m_Position: {x: -24, y: 324, z: 0}
+    m_Position: {x: 12, y: 336, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102970348836014928}
-    m_Position: {x: 528, y: 528, z: 0}
+    m_Position: {x: 360, y: 168, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102865500463213092}
     m_Position: {x: 696, y: 336, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102135513128933838}
-    m_Position: {x: 816, y: 528, z: 0}
+    m_Position: {x: 696, y: 168, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
-  m_EntryPosition: {x: 408, y: 180, z: 0}
+  m_EntryPosition: {x: 228, y: 264, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 1102117465648774544}
