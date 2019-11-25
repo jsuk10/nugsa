@@ -6,6 +6,7 @@ public class Monster : MonoBehaviour
 {
 	public Tile currentTile;
 	[SerializeField] Animator anim;
+    //펄스면 1소환 트루면 2소환
     public bool mobstate = false;
 
 	private void Start()
@@ -27,6 +28,7 @@ public class Monster : MonoBehaviour
     public void Grow()
     {
         anim.SetTrigger("Grow");
+        mobstate = false;
     }
     public void Grow2()
     {
@@ -36,10 +38,15 @@ public class Monster : MonoBehaviour
     public void Harvest()
     {
         anim.SetTrigger("Harvest");
+        mobstate = false;
     }
     public void Harvest2()
     {
         anim.SetTrigger("Harvest2");
+        mobstate = false;
     }
-
+    public void Mob2ready()
+    {
+        anim.SetTrigger("Mob2ready");
+    }
 }

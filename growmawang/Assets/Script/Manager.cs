@@ -23,13 +23,15 @@ public class Manager : MonoBehaviour
     [SerializeField] Text MoveText;
     [SerializeField] GameObject MoveButton;
 
-    [SerializeField] float RemainTime = 5.0f;
-	[SerializeField] float ReduseRate = 0.3f;
-    [SerializeField] int Point = 0;
-    [SerializeField] int Mob2Velue = 2;
+    [SerializeField] float remainTime = 5.0f;
+	[SerializeField] float reduseRate = 0.3f;
+    [SerializeField] int point = 0;
+    [SerializeField] int mob2Velue = 2;
     [SerializeField] bool changeMob = true;
+    [SerializeField] int mobNum = 5;
     int TouchCount = 0;
     bool Timestate = true;
+    int randomSponV;
 
     private void Start()
 	{
@@ -39,10 +41,11 @@ public class Manager : MonoBehaviour
 	}
     private void Update()
     {
-
+        Debug.Log(Mob.GetComponent<Monster>().mobstate);
     }
     public void Process(string command)
 	{
+        //스탑 버튼의 멈추는 함수
         if (command == "Stop")
         {
             if (Timestate == true)
@@ -60,11 +63,14 @@ public class Manager : MonoBehaviour
             }
             Timestate = !Timestate;
         }
+        //스탑 버튼의 멈췄다가 다시 작동하는 함수
         if (command == "Restart")
             Time.timeScale = 1;
+
+        //무브 버튼 함수
         if (command == "Move")
         {
-            if (Point > 0)
+            if (point > 0)
             {
                 HavestImage.gameObject.SetActive(false);
                 HavestText.gameObject.SetActive(false);
@@ -103,7 +109,7 @@ public class Manager : MonoBehaviour
 				return;
 			}
 		}
-
+        //수확 버튼의 함수.
 		if (command == "Harvest")
 		{
             int temp = Player.currentTile.index - Mob.currentTile.index;
@@ -116,7 +122,7 @@ public class Manager : MonoBehaviour
                     if (TouchCount == 1)
                     {
                         Mob.Harvest2();
-                        Point += 2;
+                        point += 2;
                         TouchCount = 0;
                         changeMob = true;
                         StopAllCoroutines();
@@ -130,29 +136,33 @@ public class Manager : MonoBehaviour
                 else if (Mob.GetComponent<Monster>().mobstate == false)
                 {
                     Mob.Harvest();
-                    Point++;
+                    point++;
                     changeMob = true;
                     StopCoroutine("TimeOut");
                 }
                 //몹위치 변경
-               
-                    if (changeMob == true)
+                if (changeMob == true)
                     {
                         if (Mob == Mob_L)
                         {
                             Mob.leftSpawn();
                             Mob = Mob_R;
-                        }
+                           
+                    }
                         else if (Mob == Mob_R)
                         {
                             Mob.rightSpawn();
                             Mob = Mob_L;
                         }
 
-                        //몹 1, 2 분기점
-                        if (Point > Mob2Velue)
+                    if(point > mob2Velue)
+                        randomSponV = UnityEngine.Random.Range(0, 5);
+    
+                    if (randomSponV == mob2Velue)
                         {
-                            Mob.GetComponent<Monster>().mobstate = true;
+                        Debug.Log("예상");
+                        Mob.Mob2ready();
+                        Mob.GetComponent<Monster>().mobstate = true;
                             if (TouchCount == 0)
                                 Mob.Grow2();
                         }
@@ -160,11 +170,11 @@ public class Manager : MonoBehaviour
                             Mob.Grow();
                     }
                     //점수와 시간에 대한 곳.
-                    RemainTime = RemainTime * ReduseRate;
-                    Slider.maxValue = RemainTime;
-                    if (RemainTime < 0.3f)
-                        RemainTime = 0.3f;
-                    StartCoroutine("TimeOut", RemainTime);
+                    remainTime = remainTime *(1 - reduseRate);
+                    Slider.maxValue = remainTime;
+                    if (remainTime < 0.3f)
+                        remainTime = 0.3f;
+                    StartCoroutine("TimeOut", remainTime);
                 
                 return;
 			}
@@ -181,14 +191,14 @@ public class Manager : MonoBehaviour
 
         yield return new WaitForSeconds(1.2f);
         gameOver.SetActive(true);
-        FinalGrade.text = "수확한 식물수 : " + Point;
+        FinalGrade.text = "수확한 식물수 : " + point;
     }
     IEnumerator TimeOut(float time)
 	{
 		while ((time -= Time.deltaTime) > 0)
 		{
             Slider.value = ((float)(Math.Truncate(time * 100) / 100 ));
-            Grade.text = "수확한 식물수 : " + Point;
+            Grade.text = "수확한 식물수 : " + point;
 			yield return null;
 		}
         StartCoroutine(GameOver());
