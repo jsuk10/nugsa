@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class Manager : MonoBehaviour
 {
-    [SerializeField]GameObject gameOver;
+    [SerializeField] GameObject gameOver;
+    [SerializeField] GameObject MenuUi;
     [SerializeField] Text Grade;
     [SerializeField] Text FinalGrade;
     [SerializeField] Slider Slider;
@@ -34,31 +35,34 @@ public class Manager : MonoBehaviour
     int randomSponV;
 
     private void Start()
-	{
-		manager = this;
+    {
+        MenuUi.SetActive(false);
+        gameOver.SetActive(false);
+        manager = this;
 		Mob_L = Mob;
 		Mob.Grow();
 	}
     private void Update()
     {
-        Debug.Log(Mob.GetComponent<Monster>().mobstate);
     }
     public void Process(string command)
 	{
         //스탑 버튼의 멈추는 함수
-        if (command == "Stop")
+        if (command == "Menu")
         {
             if (Timestate == true)
             {
                 Time.timeScale = 0;
                 HaverstButton.SetActive(false);
                 MoveButton.SetActive(false);
+                MenuUi.SetActive(true);
             }
             else
             {
                 Time.timeScale = 1;
                 HaverstButton.SetActive(true);
                 MoveButton.SetActive(true);
+                MenuUi.SetActive(false);
 
             }
             Timestate = !Timestate;
@@ -160,7 +164,6 @@ public class Manager : MonoBehaviour
     
                     if (randomSponV == mob2Velue)
                         {
-                        Debug.Log("예상");
                         Mob.Mob2ready();
                         Mob.GetComponent<Monster>().mobstate = true;
                             if (TouchCount == 0)
