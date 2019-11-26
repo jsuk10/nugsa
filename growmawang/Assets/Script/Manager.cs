@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class Manager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Manager : MonoBehaviour
     [SerializeField] GameObject MenuUi;
     [SerializeField] Text Grade;
     [SerializeField] Text FinalGrade;
+    [SerializeField] Text MaxGrade;
     [SerializeField] Slider Slider;
     public static Manager manager;
 
@@ -33,9 +35,12 @@ public class Manager : MonoBehaviour
     int TouchCount = 0;
     bool Timestate = true;
     int randomSponV;
+    string maxSoureS = " ";
+    int maxSoureI = 0;
 
     private void Start()
     {
+        ReadData();
         MenuUi.SetActive(false);
         gameOver.SetActive(false);
         manager = this;
@@ -186,15 +191,38 @@ public class Manager : MonoBehaviour
 		}
 	}
 
+    public void WriteData(string strData)
+    {
+        // FileMode.Create는 덮어쓰기.
+        FileStream f = new FileStream(Application.dataPath + "/data" + "/" + "text.txt", FileMode.Create, FileAccess.Write);
+
+        StreamWriter writer = new StreamWriter(f, System.Text.Encoding.Unicode);
+        writer.WriteLine(strData);
+        writer.Close();
+        Debug.Log("저장");
+    }
+
+    public void ReadData()
+    {
+        StreamReader sr = new StreamReader(Application.dataPath + "/data" + "/" + "text.txt");
+        maxSoureS = sr.ReadLine();
+        maxSoureI = Int32.Parse(maxSoureS);
+        sr.Close();
+        Debug.Log("읽기");
+    }
+
     IEnumerator GameOver()
     {
         Player.SetTrigger("Die");
         HaverstButton.SetActive(false);
         MoveButton.SetActive(false);
-
         yield return new WaitForSeconds(1.2f);
         gameOver.SetActive(true);
+
         FinalGrade.text = "수확한 식물수 : " + point;
+        if (point > maxSoureI)
+            WriteData(point.ToString());
+        MaxGrade.text = "최고 점수는 " + maxSoureI + "입니다.";
     }
     IEnumerator TimeOut(float time)
 	{
