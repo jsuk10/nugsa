@@ -44,4 +44,8 @@ public class Setting : MonoBehaviour
         HowToPlay.SetActive(true);
     }
 
+    public void deleteMaxGrade() {
+        PlayerPrefs.DeleteAll();
+    }
+
 }

@@ -36,22 +36,22 @@ public class Manager : MonoBehaviour
     int TouchCount = 0;
     bool Timestate = true;
     int randomSponV;
-    string maxSoureS = " ";
-    int maxSoureI = 0;
+    int maxGrade = 0;
 
     private void Start()
     {
-        ReadData();
+        maxGrade = PlayerPrefs.GetInt("maxGradeP",0);
         MenuUi.SetActive(false);
         gameOver.SetActive(false);
         SettingUI.SetActive(false);
         manager = this;
 		Mob_L = Mob;
 		Mob.Grow();
-	}
+    }
     private void Update()
     {
-
+        Debug.Log("멕스 그레이드" +maxGrade);
+        Debug.Log("포인트"+point);
     }
     public void Process(string command)
 	{
@@ -199,23 +199,7 @@ public class Manager : MonoBehaviour
 		}
 	}
 
-    public void WriteData(string strData)
-    {
-        // FileMode.Create는 덮어쓰기.
-        FileStream f = new FileStream(Application.dataPath + "/data" + "/" + "text.txt", FileMode.Create, FileAccess.Write);
 
-        StreamWriter writer = new StreamWriter(f, System.Text.Encoding.Unicode);
-        writer.WriteLine(strData);
-        writer.Close();
-    }
-
-    public void ReadData()
-    {
-        StreamReader sr = new StreamReader(Application.dataPath + "/data" + "/" + "text.txt");
-        maxSoureS = sr.ReadLine();
-        maxSoureI = Int32.Parse(maxSoureS);
-        sr.Close();
-    }
 
     IEnumerator GameOver()
     {
@@ -224,12 +208,18 @@ public class Manager : MonoBehaviour
         MoveButton.SetActive(false);
         yield return new WaitForSeconds(1.2f);
         gameOver.SetActive(true);
-
         FinalGrade.text = "수확한 식물수 : " + point;
-        if (point > maxSoureI)
-            WriteData(point.ToString());
-        ReadData();
-        MaxGrade.text = "최고 점수는 " + maxSoureI + "입니다.";
+
+        
+        if (point > maxGrade)
+        {
+            PlayerPrefs.SetInt("maxGradeP", point);
+            maxGrade = PlayerPrefs.GetInt("maxGradeP");
+            PlayerPrefs.Save();
+            Debug.Log("저장");
+        }
+        
+        MaxGrade.text = "최고 점수는 " + maxGrade + " 입니다.";
     }
     IEnumerator TimeOut(float time)
 	{
