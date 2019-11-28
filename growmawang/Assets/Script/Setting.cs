@@ -7,6 +7,13 @@ public class Setting : MonoBehaviour
 {
     [SerializeField] GameObject CreaditGO;
     [SerializeField] GameObject SettingGO;
+    [SerializeField] GameObject HowToPlay;
+
+    public void Start()
+    {
+        CreaditGO.SetActive(false);
+        SettingGO.SetActive(false);
+    }
     public void Lobby()
     {
         SceneManager.LoadScene("Lobby");
@@ -32,4 +39,9 @@ public class Setting : MonoBehaviour
     {
         CreaditGO.SetActive(false);
     }
+    public void HowToPlayOn()
+    {
+        HowToPlay.SetActive(true);
+    }
+
 }
