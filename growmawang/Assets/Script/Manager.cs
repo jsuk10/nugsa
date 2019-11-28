@@ -9,6 +9,7 @@ public class Manager : MonoBehaviour
 {
     [SerializeField] GameObject gameOver;
     [SerializeField] GameObject MenuUi;
+    [SerializeField] GameObject SettingUI;
     [SerializeField] Text Grade;
     [SerializeField] Text FinalGrade;
     [SerializeField] Text MaxGrade;
@@ -31,7 +32,7 @@ public class Manager : MonoBehaviour
     [SerializeField] int point = 0;
     [SerializeField] int mob2Velue = 2;
     [SerializeField] bool changeMob = true;
-    [SerializeField] int mobNum = 5;
+    [SerializeField] int mobNum = 2;
     int TouchCount = 0;
     bool Timestate = true;
     int randomSponV;
@@ -43,12 +44,14 @@ public class Manager : MonoBehaviour
         ReadData();
         MenuUi.SetActive(false);
         gameOver.SetActive(false);
+        SettingUI.SetActive(false);
         manager = this;
 		Mob_L = Mob;
 		Mob.Grow();
 	}
     private void Update()
     {
+
     }
     public void Process(string command)
 	{
@@ -164,11 +167,16 @@ public class Manager : MonoBehaviour
                             Mob = Mob_L;
                         }
 
-                    if(point > mob2Velue)
-                        randomSponV = UnityEngine.Random.Range(0, 5);
+                    if (point > mob2Velue)
+                    {
+                        if (mobNum > 3)
+                            randomSponV = UnityEngine.Random.Range(0, mobNum);
+                        if (mobNum < 3)
+                            randomSponV = UnityEngine.Random.Range(0, 3);
+                    }
     
-                    if (randomSponV == mob2Velue)
-                        {
+                    if (randomSponV == 2)
+                    {
                         Mob.Mob2ready();
                         Mob.GetComponent<Monster>().mobstate = true;
                             if (TouchCount == 0)
@@ -199,7 +207,6 @@ public class Manager : MonoBehaviour
         StreamWriter writer = new StreamWriter(f, System.Text.Encoding.Unicode);
         writer.WriteLine(strData);
         writer.Close();
-        Debug.Log("저장");
     }
 
     public void ReadData()
@@ -208,7 +215,6 @@ public class Manager : MonoBehaviour
         maxSoureS = sr.ReadLine();
         maxSoureI = Int32.Parse(maxSoureS);
         sr.Close();
-        Debug.Log("읽기");
     }
 
     IEnumerator GameOver()
@@ -222,6 +228,7 @@ public class Manager : MonoBehaviour
         FinalGrade.text = "수확한 식물수 : " + point;
         if (point > maxSoureI)
             WriteData(point.ToString());
+        ReadData();
         MaxGrade.text = "최고 점수는 " + maxSoureI + "입니다.";
     }
     IEnumerator TimeOut(float time)
