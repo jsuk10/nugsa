@@ -231,6 +231,7 @@ public class Manager : MonoBehaviour
         ReadData();
         MaxGrade.text = "최고 점수는 " + maxSoureI + "입니다.";
     }
+    
     IEnumerator TimeOut(float time)
 	{
 		while ((time -= Time.deltaTime) > 0)
