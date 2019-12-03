@@ -11,7 +11,7 @@ public class Manager : MonoBehaviour
     [SerializeField] AudioClip playerMoveSound;
     [SerializeField] AudioClip playerHavestSound;
     [SerializeField] AudioClip gameOverSound;
-
+    [SerializeField] GameObject backMusic;
 
     [SerializeField] GameObject gameOver;
     [SerializeField] GameObject MenuUi;
@@ -214,10 +214,11 @@ public class Manager : MonoBehaviour
 
     IEnumerator GameOver()
     {
-        myAudio.PlayOneShot(gameOverSound);
         Player.SetTrigger("Die");
         HaverstButton.SetActive(false);
+        backMusic.SetActive(false);
         MoveButton.SetActive(false);
+        myAudio.PlayOneShot(gameOverSound);
         yield return new WaitForSeconds(1.2f);
         gameOver.SetActive(true);
         FinalGrade.text = "수확한 식물수 : " + point;
