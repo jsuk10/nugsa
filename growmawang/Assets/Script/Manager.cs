@@ -7,6 +7,12 @@ using System.IO;
 
 public class Manager : MonoBehaviour
 {
+    AudioSource myAudio;
+    [SerializeField] AudioClip playerMoveSound;
+    [SerializeField] AudioClip playerHavestSound;
+    [SerializeField] AudioClip gameOverSound;
+
+
     [SerializeField] GameObject gameOver;
     [SerializeField] GameObject MenuUi;
     [SerializeField] GameObject SettingUI;
@@ -37,9 +43,11 @@ public class Manager : MonoBehaviour
     bool Timestate = true;
     int randomSponV;
     int maxGrade = 0;
+  
 
     private void Start()
     {
+        myAudio = GetComponent<AudioSource>();
         maxGrade = PlayerPrefs.GetInt("maxGradeP",0);
         MenuUi.SetActive(false);
         gameOver.SetActive(false);
@@ -82,6 +90,7 @@ public class Manager : MonoBehaviour
         //무브 버튼 함수
         if (command == "Move")
         {
+            myAudio.PlayOneShot(playerMoveSound);
             if (point > 0)
             {
                 HavestImage.gameObject.SetActive(false);
@@ -120,10 +129,12 @@ public class Manager : MonoBehaviour
 				Player.StartCoroutine("Move", Map.map.tiles[Player.currentTile.index - 1]);
 				return;
 			}
-		}
+
+        }
         //수확 버튼의 함수.
 		if (command == "Harvest")
-		{
+        {
+            myAudio.PlayOneShot(playerHavestSound);
             int temp = Player.currentTile.index - Mob.currentTile.index;
 			if (temp*temp == 1)
 			{
@@ -203,6 +214,7 @@ public class Manager : MonoBehaviour
 
     IEnumerator GameOver()
     {
+        myAudio.PlayOneShot(gameOverSound);
         Player.SetTrigger("Die");
         HaverstButton.SetActive(false);
         MoveButton.SetActive(false);
