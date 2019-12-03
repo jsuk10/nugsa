@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-	[SerializeField] float moveSpeed;
-	public Tile currentTile;
+    private AudioSource audio;
+    public Tile currentTile;
+    [SerializeField] float moveSpeed;
 	[SerializeField] Animator anim;
-	private void Start()
+    [SerializeField] AudioClip playerSound;
+
+
+    private void Start()
 	{
 		transform.position = currentTile.transform.position;
-	}
+        this.audio = this.gameObject.AddComponent<AudioSource>();
+        this.audio.clip = this.playerSound;
+        this.audio.loop = false;
+    }
 	public IEnumerator Move(Tile End)
 	{
 		Tile Start = currentTile;
