@@ -77,7 +77,7 @@ public class Manager : MonoBehaviour
                 HaverstButton.SetActive(false);
                 MoveButton.SetActive(false);
                 MenuUi.SetActive(true);
-                MenuText.text = "Exit";
+                MenuText.text = "닫기";
             }
             else
             {
@@ -85,7 +85,7 @@ public class Manager : MonoBehaviour
                 HaverstButton.SetActive(true);
                 MoveButton.SetActive(true);
                 MenuUi.SetActive(false);
-                MenuText.text = "Menu";
+                MenuText.text = "메뉴";
 
             }
             Timestate = !Timestate;
