@@ -29,7 +29,6 @@ public class SoundControll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Volum);
         SoundSlider();
     }
 }

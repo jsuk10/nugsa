@@ -44,7 +44,7 @@ public class tuto : MonoBehaviour
         if (count == 3)
         {
             bt1.image.sprite = image[3];
-            tx.text = "정확하게 클릭하지 않으면 사망합니다.";
+            tx.text = "정확하게 클릭하지 않으면 사망합니다." +"\n" + " 다른 식물을 수확시 추가 효과가 있습니다.";
             count = 4;
             return;
         }

@@ -3080,6 +3080,7 @@ MonoBehaviour:
   Grade: {fileID: 1951918742}
   FinalGrade: {fileID: 612622165}
   MaxGrade: {fileID: 1976577028}
+  MenuText: {fileID: 581707099}
   Slider: {fileID: 1219408624}
   Player: {fileID: 31825382}
   Mob_L: {fileID: 471489490}
@@ -3091,8 +3092,8 @@ MonoBehaviour:
   MoveImage: {fileID: 807175384}
   MoveText: {fileID: 1358277728}
   MoveButton: {fileID: 2136563292}
-  remainTime: 5
-  reduseRate: 0.03
+  remainTime: 4
+  reduseRate: 0.025
   point: 0
   mob2Velue: 2
   changeMob: 1
