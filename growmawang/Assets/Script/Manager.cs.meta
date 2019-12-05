@@ -3,7 +3,27 @@ guid: b17633e2ce393944eae179138266ca86
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - playerMoveSound: {instanceID: 0}
+  - playerHavestSound: {instanceID: 0}
+  - gameOverSound: {instanceID: 0}
+  - gameOver: {instanceID: 0}
+  - MenuUi: {instanceID: 0}
+  - SettingUI: {instanceID: 0}
+  - Grade: {instanceID: 0}
+  - FinalGrade: {instanceID: 0}
+  - MaxGrade: {instanceID: 0}
+  - Slider: {instanceID: 0}
+  - Player: {instanceID: 0}
+  - Mob_L: {instanceID: 0}
+  - Mob_R: {instanceID: 0}
+  - Mob: {instanceID: 0}
+  - HavestImage: {instanceID: 0}
+  - HavestText: {instanceID: 0}
+  - HaverstButton: {instanceID: 0}
+  - MoveImage: {instanceID: 0}
+  - MoveText: {instanceID: 0}
+  - MoveButton: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
