@@ -19,6 +19,7 @@ public class Manager : MonoBehaviour
     [SerializeField] Text Grade;
     [SerializeField] Text FinalGrade;
     [SerializeField] Text MaxGrade;
+    [SerializeField] Text MenuText;
     [SerializeField] Slider Slider;
     public static Manager manager;
 
@@ -60,6 +61,7 @@ public class Manager : MonoBehaviour
     {
         Debug.Log("멕스 그레이드" +maxGrade);
         Debug.Log("포인트"+point);
+        Debug.Log("남은시간" + remainTime);
     }
     public void Process(string command)
 	{
@@ -72,6 +74,7 @@ public class Manager : MonoBehaviour
                 HaverstButton.SetActive(false);
                 MoveButton.SetActive(false);
                 MenuUi.SetActive(true);
+                MenuText.text = "Exit";
             }
             else
             {
@@ -79,6 +82,7 @@ public class Manager : MonoBehaviour
                 HaverstButton.SetActive(true);
                 MoveButton.SetActive(true);
                 MenuUi.SetActive(false);
+                MenuText.text = "Menu";
 
             }
             Timestate = !Timestate;
@@ -145,9 +149,10 @@ public class Manager : MonoBehaviour
                     if (TouchCount == 1)
                     {
                         Mob.Harvest2();
-                        point += 2;
+                        point += 1;
                         TouchCount = 0;
                         changeMob = true;
+                        remainTime += 0.25f;
                         StopAllCoroutines();
                     }
                     else

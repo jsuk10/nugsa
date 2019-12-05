@@ -14,14 +14,14 @@ public class SoundControll : MonoBehaviour
     public void SoundSlider() {
         audio.volume = Soundbar.value;
         Volum = Soundbar.value;
-        PlayerPrefs.SetFloat("SoundVolum", Volum);
+        PlayerPrefs.SetFloat("SoundVolum", Volum) ;
 
 
     }
     // Start is called before the first frame update
     void Start()
     {
-        Volum = PlayerPrefs.GetFloat("Volum", 1f);
+        Volum = PlayerPrefs.GetFloat("SoundVolum",1f);
         Soundbar.value = Volum;
         audio.volume = Soundbar.value;
     }
