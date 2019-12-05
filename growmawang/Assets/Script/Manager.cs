@@ -20,6 +20,7 @@ public class Manager : MonoBehaviour
     [SerializeField] Text FinalGrade;
     [SerializeField] Text MaxGrade;
     [SerializeField] Text MenuText;
+    [SerializeField] Text TimeUp;
     [SerializeField] Slider Slider;
     public static Manager manager;
 
@@ -40,6 +41,7 @@ public class Manager : MonoBehaviour
     [SerializeField] int mob2Velue = 2;
     [SerializeField] bool changeMob = true;
     [SerializeField] int mobNum = 2;
+    [SerializeField] float increestime = 0.25f;
     int TouchCount = 0;
     bool Timestate = true;
     int randomSponV;
@@ -53,6 +55,7 @@ public class Manager : MonoBehaviour
         MenuUi.SetActive(false);
         gameOver.SetActive(false);
         SettingUI.SetActive(false);
+        TimeUp.text = " ";
         manager = this;
 		Mob_L = Mob;
 		Mob.Grow();
@@ -152,19 +155,22 @@ public class Manager : MonoBehaviour
                         point += 1;
                         TouchCount = 0;
                         changeMob = true;
-                        remainTime += 0.25f;
+                        remainTime += increestime;
+                        TimeUp.text = " ++ " + increestime;
                         StopAllCoroutines();
                     }
                     else
                     {
                         changeMob = false;
                         TouchCount++;
+                        TimeUp.text = " ";
                     }
                 }
                 else if (Mob.GetComponent<Monster>().mobstate == false)
                 {
                     Mob.Harvest();
                     point++;
+                    TimeUp.text = " ";
                     changeMob = true;
                     StopCoroutine("TimeOut");
                 }
