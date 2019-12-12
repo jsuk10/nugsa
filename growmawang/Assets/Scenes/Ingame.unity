@@ -3238,7 +3238,7 @@ MonoBehaviour:
   remainTime: 5
   reduseRate: 0.03
   point: 0
-  mob2Velue: 2
+  mob2Velue: 10
   changeMob: 1
   mobNum: 5
   increestime: 0.25
