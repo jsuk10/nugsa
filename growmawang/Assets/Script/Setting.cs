@@ -17,6 +17,7 @@ public class Setting : MonoBehaviour
     public void Lobby()
     {
         SceneManager.LoadScene("Lobby");
+        Time.timeScale = 1;
     }
     public void Ingame()
     {
