@@ -680,7 +680,7 @@ GameObject:
   - component: {fileID: 608226500}
   - component: {fileID: 608226499}
   m_Layer: 5
-  m_Name: HowToPlay
+  m_Name: HowToPlayBackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -816,6 +816,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e3783ec36dba3454984595499e42f3c4, type: 3}
   - {fileID: 21300000, guid: b083078c554c6324daff4a03430f19ce, type: 3}
   - {fileID: 21300000, guid: 344a4922fa3ab0f4aaf789e8adb76d2a, type: 3}
+  - {fileID: 21300000, guid: 946627eb974c44457b01d20b101323bf, type: 3}
+  - {fileID: 21300000, guid: 2091f401d42954373b2b6ed6156758b4, type: 3}
+  - {fileID: 21300000, guid: df5c681c81e30437bb162f5610c28504, type: 3}
 --- !u!1 &615641248
 GameObject:
   m_ObjectHideFlags: 0
