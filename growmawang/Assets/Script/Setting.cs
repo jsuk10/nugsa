@@ -11,7 +11,8 @@ public class Setting : MonoBehaviour
 
     public void Start()
     {
-        CreaditGO.SetActive(false);
+        if(CreaditGO != null) 
+            CreaditGO.SetActive(false);
         SettingGO.SetActive(false);
     }
     public void Lobby()
@@ -31,6 +32,7 @@ public class Setting : MonoBehaviour
     {
         SettingGO.SetActive(false);
     }
+  
     public void CreaditOn()
     {
         CreaditGO.SetActive(true);
@@ -40,6 +42,7 @@ public class Setting : MonoBehaviour
     {
         CreaditGO.SetActive(false);
     }
+
     public void HowToPlayOn()
     {
         HowToPlay.SetActive(true);
