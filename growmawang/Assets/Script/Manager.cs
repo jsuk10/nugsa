@@ -60,12 +60,7 @@ public class Manager : MonoBehaviour
 		Mob_L = Mob;
 		Mob.Grow();
     }
-    private void Update()
-    {
-        Debug.Log("멕스 그레이드" +maxGrade);
-        Debug.Log("포인트"+point);
-        Debug.Log("남은시간" + remainTime);
-    }
+
     public void Process(string command)
 	{
         //스탑 버튼의 멈추는 함수
