@@ -12,6 +12,7 @@ public class Manager : MonoBehaviour
     [SerializeField] AudioClip playerHavestSound;
     [SerializeField] AudioClip gameOverSound;
     [SerializeField] GameObject backMusic;
+    [SerializeField] GameObject TimeUpBackground;
 
     [SerializeField] GameObject gameOver;
     [SerializeField] GameObject MenuUi;
@@ -55,7 +56,9 @@ public class Manager : MonoBehaviour
         MenuUi.SetActive(false);
         gameOver.SetActive(false);
         SettingUI.SetActive(false);
+        TimeUpBackground.SetActive(false);
         TimeUp.text = " ";
+
         manager = this;
 		Mob_L = Mob;
 		Mob.Grow();
@@ -152,12 +155,14 @@ public class Manager : MonoBehaviour
                         changeMob = true;
                         remainTime += increestime;
                         TimeUp.text = " ++ " + increestime;
+                        TimeUpBackground.SetActive(true);
                         StopAllCoroutines();
                     }
                     else
                     {
                         changeMob = false;
                         TouchCount++;
+                        TimeUpBackground.SetActive(false);
                         TimeUp.text = " ";
                     }
                 }
@@ -167,6 +172,7 @@ public class Manager : MonoBehaviour
                     point++;
                     TimeUp.text = " ";
                     changeMob = true;
+                    TimeUpBackground.SetActive(false);
                     StopCoroutine("TimeOut");
                 }
                 //몹위치 변경
