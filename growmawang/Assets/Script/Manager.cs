@@ -45,6 +45,7 @@ public class Manager : MonoBehaviour
     [SerializeField] float increestime = 0.25f;
     int TouchCount = 0;
     bool Timestate = true;
+    bool isGameOver = false;
     int randomSponV;
     int maxGrade = 0;
   
@@ -111,7 +112,8 @@ public class Manager : MonoBehaviour
                 if (Player.currentTile.index - Mob.currentTile.index== -1)
                 {
                     //죽음 처리
-                    StartCoroutine(GameOver());
+                    if (isGameOver != true)
+                        StartCoroutine(GameOver());
                     return;
 				}
 				//이동
@@ -126,7 +128,8 @@ public class Manager : MonoBehaviour
                 if (Player.currentTile.index - Mob.currentTile.index == 1)
 				{
                     //죽음 처리
-                    StartCoroutine(GameOver());
+                    if (isGameOver != true)
+                        StartCoroutine(GameOver());
                     return;
 				}
 				//이동
@@ -141,10 +144,10 @@ public class Manager : MonoBehaviour
         {
             myAudio.PlayOneShot(playerHavestSound);
             int temp = Player.currentTile.index - Mob.currentTile.index;
-			if (temp*temp == 1)
-			{
-				//수확모션
-				Player.SetTrigger("Harvest");
+            if (temp * temp == 1)
+            {
+                //수확모션
+                Player.SetTrigger("Harvest");
                 if (Mob.GetComponent<Monster>().mobstate == true)
                 {
                     if (TouchCount == 1)
@@ -173,22 +176,23 @@ public class Manager : MonoBehaviour
                     TimeUp.text = " ";
                     changeMob = true;
                     TimeUpBackground.SetActive(false);
-                    StopCoroutine("TimeOut");
+                    if (isGameOver != true)
+                        StopCoroutine("TimeOut");
                 }
                 //몹위치 변경
                 if (changeMob == true)
+                {
+                    if (Mob == Mob_L)
                     {
-                        if (Mob == Mob_L)
-                        {
-                            Mob.leftSpawn();
-                            Mob = Mob_R;
-                           
+                        Mob.leftSpawn();
+                        Mob = Mob_R;
+
                     }
-                        else if (Mob == Mob_R)
-                        {
-                            Mob.rightSpawn();
-                            Mob = Mob_L;
-                        }
+                    else if (Mob == Mob_R)
+                    {
+                        Mob.rightSpawn();
+                        Mob = Mob_L;
+                    }
 
                     if (point > mob2Velue)
                     {
@@ -197,28 +201,28 @@ public class Manager : MonoBehaviour
                         if (mobNum < 3)
                             randomSponV = UnityEngine.Random.Range(0, 3);
                     }
-    
+
                     if (randomSponV == 2)
                     {
                         Mob.Mob2ready();
                         Mob.GetComponent<Monster>().mobstate = true;
-                            if (TouchCount == 0)
-                                Mob.Grow2();
-                        }
-                        else
-                            Mob.Grow();
+                        if (TouchCount == 0)
+                            Mob.Grow2();
                     }
-                    //점수와 시간에 대한 곳.
-                    remainTime = remainTime *(1 - reduseRate);
-                    Slider.maxValue = remainTime;
-                    if (remainTime < 0.3f)
-                        remainTime = 0.3f;
-                    StartCoroutine("TimeOut", remainTime);
-                
+                    else
+                        Mob.Grow();
+                }
+                //점수와 시간에 대한 곳.
+                remainTime = remainTime * (1 - reduseRate);
+                Slider.maxValue = remainTime;
+                if (remainTime < 0.3f)
+                    remainTime = 0.3f;
+                StartCoroutine("TimeOut", remainTime);
                 return;
-			}
+            }
             //죽음처리
-            StartCoroutine(GameOver());
+            if (isGameOver != true)
+                StartCoroutine(GameOver());
 		}
 	}
 
@@ -226,6 +230,7 @@ public class Manager : MonoBehaviour
 
     IEnumerator GameOver()
     {
+        isGameOver = true;
         Player.SetTrigger("Die");
         HaverstButton.SetActive(false);
         backMusic.SetActive(false);
@@ -255,6 +260,7 @@ public class Manager : MonoBehaviour
             Grade.text = "수확한 식물수 : " + point;
 			yield return null;
 		}
-        StartCoroutine(GameOver());
+        if (isGameOver != true)
+            StartCoroutine(GameOver());
     }
 }
