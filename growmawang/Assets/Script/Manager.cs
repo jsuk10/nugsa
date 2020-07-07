@@ -16,6 +16,7 @@ public class Manager : MonoBehaviour
 
     [SerializeField] GameObject gameOver;
     [SerializeField] GameObject MenuUi;
+    [SerializeField] GameObject MenuButton;
     [SerializeField] GameObject SettingUI;
     [SerializeField] Text Grade;
     [SerializeField] Text FinalGrade;
@@ -231,6 +232,8 @@ public class Manager : MonoBehaviour
     IEnumerator GameOver()
     {
         isGameOver = true;
+        Slider.maxValue = 0;
+        MenuButton.SetActive(false);
         Player.SetTrigger("Die");
         HaverstButton.SetActive(false);
         backMusic.SetActive(false);
@@ -254,12 +257,13 @@ public class Manager : MonoBehaviour
     
     IEnumerator TimeOut(float time)
 	{
-		while ((time -= Time.deltaTime) > 0)
-		{
-            Slider.value = ((float)(Math.Truncate(time * 100) / 100 ));
-            Grade.text = "수확한 식물수 : " + point;
-			yield return null;
-		}
+        if (isGameOver != true)
+            while ((time -= Time.deltaTime) > 0)
+            {
+                Slider.value = ((float)(Math.Truncate(time * 100) / 100));
+                Grade.text = "수확한 식물수 : " + point;
+                yield return null;
+            }
         if (isGameOver != true)
             StartCoroutine(GameOver());
     }

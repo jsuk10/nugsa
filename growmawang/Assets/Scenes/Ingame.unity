@@ -3219,6 +3219,7 @@ MonoBehaviour:
   TimeUpBackground: {fileID: 1773316068}
   gameOver: {fileID: 1524431642}
   MenuUi: {fileID: 1981551438}
+  MenuButton: {fileID: 1313425156}
   SettingUI: {fileID: 413055304}
   Grade: {fileID: 1951918742}
   FinalGrade: {fileID: 612622165}
